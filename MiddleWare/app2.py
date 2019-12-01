@@ -13,12 +13,12 @@
       print(sensorValueToList)
         
       import requests 
-      API_ENDPOINT = "http://203.255.67.238:5000/add"
+      API_ENDPOINT = "http://0.0.0.0:5000/add"
       # json 파일로 저장하기 위한 데이터 저장! 
       # {} - json의 형식인 딕트형식으로 저장해줌
 
       formData = {
-              'deviceName': "미선",
+              'deviceName': "place1",
               'Humidity': sensorValueToList[0],
               'Temperature': sensorValueToList[1],
               'Fire ':sensorValueToList[2],
