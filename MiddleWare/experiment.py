@@ -33,7 +33,7 @@ while True:
 
             formData = {
 
-                'deviceName': "미선",
+                'deviceName': "place1",
                 'sensorValue': sensorValue[0],
                 'Vol ':  sensorValue[1], 
                 'ppm':  sensorValue[2],
