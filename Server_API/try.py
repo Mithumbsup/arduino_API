@@ -25,36 +25,28 @@ def hello():
 
 # SAVE DATA TO DB
 @app.route("/add", methods=["POST"]) 
-# {'deviceName': 'place2', 'sensorName': 'PM 10', 'sensorValue': ' 331 ug/m3', 'time': '2019-12-05 16:56:14'}
 def add():
 
     data = request.get_json()   # json으로 전송된 데이터[formData - 형식은 "dict" ]를 불러오기 
-    ListOfDict = [ [key,val] for key, val in data.items()] # dict 로 저장된 값을 key, value 로 나누어 리스트에 저장하기 
-                # [ ["deviceName", " 미선"], ["Huminity", "33 %"],  ["Huminity", "33 %"] ''']
-    deviceName = ListOfDict[0][0].strip()    
-    deviceValue = ListOfDict[0][1].strip()  
+    #{'deviceName': 'place2', 'sensorName': 'PM 10', 'sensorValue': ' 336 ug/m3', 'time': '2019-12-05 17:35:18'}
+    ListOfDict = [ data[key] for key in data.keys()] # dict형식은 반복문을 돌릴 수 없음으로 리스트형식으로 바꿔줌
+    deviceValue = ListOfDict[0].strip()   # .strip() 빈 공백 없애주기 
+    sensorName = ListOfDict[1].strip()   # "Huminity"
+    value = ListOfDict[2].split()[0].strip()   # "33"
+    unit = ListOfDict[2].split()[1].strip()    # "%"
+    time = ListOfDict[3]
 
-    # 센서값을 DB 형시에 맞추어 저장되도록 파싱하기 
-               # 센서값이 있는 [1:]부터 시작 
-    for val in ListOfDict[1:]:    
-        # print(type(val))  # val = ["Huminity", "33 %"] 
-        sensorName = val[0].strip()   # "Huminity"
-        # val[1].split() = 센서값과 센서측정단위를 구분해서 저장해주기 위한 처리  "33 %"--> ["33" ,  " %"]
-        value = val[1].split()[0].strip()   # "33"
-        unit = val[1].split()[1].strip()    # "%"
-        time  = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    dictionary = {
 
-        dictionary = {
-            "deviceName" : deviceValue,
-            "sensorname"  :sensorName ,
-            "value" : value,
-            "unit" : unit,
-            "time" : time 
-        }
+    "deviceName" : deviceValue,
+    "sensorname"  :sensorName ,
+    "value" : value,
+    "unit" : unit,
+    "time" : time
 
-        i = len(ListOfDict[1:])
-        print(i, dictionary)
-        db.db.sensor.insert_one(dictionary)
+    }
+    print(dictionary)
+    db.db.sensor.insert_one(dictionary)
     return jsonify({'ok': True, 'message': 'Sensor created successfully!'}), 200
         
 @app.route("/getlimit/<limit_>")
