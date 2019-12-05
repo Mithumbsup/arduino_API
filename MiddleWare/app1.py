@@ -29,7 +29,7 @@ while True:
         # 3. 모든 센서값(10개)가 리스트에 담기면 formData로 서버로 전송, 아니면 지우기 
         if len(sensorValue) == 11:
             import requests 
-            API_ENDPOINT = "http://203.255.67.238:5000/add"
+            API_ENDPOINT = "http://0.0.0.0:5000/add"
 
             formData = {
 

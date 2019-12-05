@@ -24,7 +24,7 @@ while True:
         time = datetime.now().strftime('%Y-%m-%d %H:%M:%S') # 센서가 측정된 시간으로 저장하기 
 
         import requests 
-        API_ENDPOINT = "http://203.255.67.238:5000/add"  # api로 요청할 데이터를 전송할 주소 설정
+        API_ENDPOINT = "http://0.0.0.0:5000/add"  # api로 요청할 데이터를 전송할 주소 설정
 
         formData = {
             
